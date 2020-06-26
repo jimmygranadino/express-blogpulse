@@ -28,11 +28,23 @@ router.get('/new', function(req, res) {
   })
 })
 
+// 
+// POST articles/:id?/comments - adds a comment to the article 'id' vs articleId BUT LIKE WOW REALly so frustrating
+router.post('/:id/comments', (req, res) => {
+  db.comment.create({
+    name: req.body.name,
+    content: req.body.content,
+    articleId: req.params.id
+  }).then(comment => {
+    res.redirect(`/articles/${req.params.id}`)
+  })
+})
+
 // GET /articles/:id - display a specific post and its author
 router.get('/:id', function(req, res) {
   db.article.findOne({
     where: { id: req.params.id },
-    include: [db.author]
+    include: [db.author, db.comment], // im screaming, that was so simple 
   })
   .then(function(article) {
     if (!article) throw Error()

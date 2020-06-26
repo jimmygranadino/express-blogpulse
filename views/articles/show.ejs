@@ -8,4 +8,31 @@
 
 <hr />
 
+<% article.comments.forEach(function(comment) { %>
+  <div class="well">
+    <p>
+      "<%= comment.content %>" - <%= comment.name %>
+    </p>
+  </div>
+<% }) %>
+
+
+<h3>Submit your comment:</h3>
+
+<form action="/articles/<%= article.id %>/comments" method="POST">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" name="name" required>
+  </div>
+
+  <div class="form-group">
+    <label for="content">Comment</label>
+    <input type="text" class="form-control" id="content" name="content" required>
+  </div>
+
+  <input type="submit" class="btn btn-primary" value="Submit">
+</form>
+
+
+
 <a href="/">&larr; Back Home</a>
